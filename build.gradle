@@ -30,8 +30,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
 
 
-    modImplementation "ru.airdead:uiengine:6.0.0"
-
+    	modImplementation "ru.airdead:uiengine:1.0.0-stable"
 }
 
 processResources {
