@@ -14,9 +14,6 @@
       "ru.airdead.mirageapi.Start"
     ]
   },
-  "mixins": [
-    "mixin.uiengine.json"
-  ],
   "depends": {
     "fabricloader": ">=0.14.12",
     "fabric": "*",
