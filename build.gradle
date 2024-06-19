@@ -28,7 +28,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
-    modImplementation "ru.airdead:uiengine:release"
+    modImplementation "ru.airdead:uiengine:3.0.0-stable"
 }
 
 processResources {
