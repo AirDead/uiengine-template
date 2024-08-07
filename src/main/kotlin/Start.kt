@@ -13,11 +13,7 @@ class Start : ClientModInitializer {
     override fun onInitializeClient() {
         UIEngine.initialize()
 
-
-        CommandRegistrationCallback.EVENT.register { dispatcher, registryAccess, environment ->
-            dispatcher.register(literal("foo")
-                .executes { context ->
-                    val rectangle = menu {
+         val rectangle = menu {
                         +rectangle {
                             size = V3(200.0, 100.0)
                             color = BLACK
@@ -31,12 +27,20 @@ class Start : ClientModInitializer {
                         }
                     }
 
-                    UIManager.addElement(rectangle)
+
+        CommandRegistrationCallback.EVENT.register { dispatcher, registryAccess, environment ->
+            dispatcher.register(literal("foo")
+                .executes { context ->
+                
+
+                
                     rectangle.show()
                     context.getSource().sendFeedback({ Text.literal("Called /foo with no arguments") }, false)
                     1
                 })
         }
+
+        UIManager.addElement(rectangle)
     }
 
 }
