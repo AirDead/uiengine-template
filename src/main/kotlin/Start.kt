@@ -1,46 +1,45 @@
-package ru.airdead.mirageapi
+package ru.airdead.uitemplate
 
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.minecraft.server.command.CommandManager.literal
 import net.minecraft.text.Text
-import ru.airdead.uiengine.UIEngine
-import ru.airdead.uiengine.UIManager
-import ru.airdead.uiengine.utility.*
+import ru.airdead.hudrenderer.HudEngine
+import ru.airdead.hudrenderer.HudEngine.clientApi
+import ru.airdead.hudrenderer.HudManager
+import ru.airdead.hudrenderer.event.MouseMoveEvent
+import ru.airdead.hudrenderer.utility.*
 
-
-class Start : ClientModInitializer {
+class Mod : ClientModInitializer {
     override fun onInitializeClient() {
-        UIEngine.initialize()
+        HudEngine.initialize()
 
-         val rectangle = menu {
-                        +rectangle {
-                            size = V3(200.0, 100.0)
-                            color = BLACK
-                            origin = CENTER
-                            align = CENTER
-                            +text {
-                                color = WHITE
-                                content = "Hello"
-                                autoFit = false
-                            }
-                        }
-                    }
+        // Example of a menu with a text element that moves behind the mouse
+        val infoItem = text {
+            text = "Info"
+            origin = CENTER
+            align = TOP_LEFT
+            color = WHITE
+        }
+        val bankMenu = menu {
+            +infoItem
+        }
 
+        clientApi.onEvent<MouseMoveEvent> {
+            val x = it.mouseX
+            val y = it.mouseY
+            infoItem.offset = x x y
+        }
 
         CommandRegistrationCallback.EVENT.register { dispatcher, registryAccess, environment ->
             dispatcher.register(literal("foo")
                 .executes { context ->
-                
-
-                
-                    rectangle.show()
+                    bankMenu.show()
                     context.getSource().sendFeedback({ Text.literal("Called /foo with no arguments") }, false)
                     1
                 })
         }
 
-        UIManager.addElement(rectangle)
+        HudManager.addElement(bankMenu)
     }
-
 }
